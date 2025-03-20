@@ -4,7 +4,7 @@ import numpy as np
 """main.py acts as an entry point for running this code"""
 
 def print_results(results: dict):
-    """Formatted output for assignment requirements"""
+    """The formatting for the output was drafted by copilot"""
     for N in [10, 40, 4000]:
         bias, mse, valid, invalid = results[N]
         print(f"\nN = {N} (Valid: {valid}, Invalid: {invalid})")

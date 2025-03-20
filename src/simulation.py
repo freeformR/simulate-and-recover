@@ -6,6 +6,9 @@ def simulate_and_recover(N: int, iterations: int = 1000) -> tuple:
     """
     Simulate and recover parameters, returning aggregate statistics.
     Returns: (avg_bias, avg_mse, valid_count, invalid_count)
+    Originally this code was part of main.py however copilot suggested this be moved into its own file
+    Tuple structure and implementation was drafted via copilot 
+    Exceptions were suggested by copilot
     """
     biases = []
     mses = []

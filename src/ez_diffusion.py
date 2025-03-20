@@ -1,8 +1,11 @@
 import numpy as np
 from scipy.stats import gamma
 
-def validate_observed_stats(R_obs: float, M_obs: float, V_obs: float, allow_zero_v=False):
-    """Validate observed statistics with optional V_obs=0 allowance"""
+def validate_observed_stats(R_obs: float, M_obs: float, V_obs: float, allow_zero_v=False): 
+    """Validate observed statistics with optional V_obs=0 allowance."""
+    """Original Validation was simple however Copilot recommended a more robust approach. """
+    """Furthermore the usage of tuples for this project was also recommended by Copilot"""
+    
     if not (0 < R_obs < 1):
         raise ValueError(f"R_obs must be 0 < R_obs < 1. Got {R_obs}")
     if M_obs <= 0 or (V_obs <= 0 and not allow_zero_v):
@@ -30,10 +33,10 @@ def simulate_observed_stats(a: float, v: float, t: float, N: int) -> tuple[float
 
     R_pred, M_pred, V_pred = compute_forward_stats(a, v, t)
     
-    # Simulate with stability
+    # Simulate with stability 
     correct = np.random.binomial(N, R_pred)
     eps = np.finfo(float).eps
-    R_obs = np.clip(correct/N, eps, 1-eps)
+    R_obs = np.clip(correct/N, eps, 1-eps) #Clipping code written by copilot
     
     # Simulate M_obs with variance protection
     M_obs = np.random.normal(M_pred, np.sqrt(max(V_pred/N, eps)))
@@ -47,9 +50,9 @@ def simulate_observed_stats(a: float, v: float, t: float, N: int) -> tuple[float
         V_obs = np.random.gamma(shape, scale)
         V_obs = max(V_obs, 1e-8)  # Variance floor for N > 1
     
-    # Validate with context-aware rules
+    # Validate with context-aware rules. Context aware rules Suggested by Copilot
     try:
-        validate_observed_stats(R_obs, M_obs, V_obs, allow_zero_v=(N == 1))
+        validate_observed_stats(R_obs, M_obs, V_obs, allow_zero_v=(N == 1))  
     except ValueError as e:
         if "V_obs" in str(e) and N == 1:
             pass  # Allow V_obs=0 for N=1
