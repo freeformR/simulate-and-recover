@@ -1,3 +1,3 @@
 #!/bin/bash
-echo "Running the complete simulate-and-recover study..."
-python3 main.py
+echo "Running study..."
+PYTHONPATH=$PYTHONPATH:/workspace/simulate-and-recover/src python3 -m src.main
